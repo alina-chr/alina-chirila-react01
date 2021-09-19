@@ -445,8 +445,6 @@ a {
   right: 155px;
 }
 
-/* Simt ca am gresit aici ^ ar fi trebuit
-oare pusa iconita direct in placeholder? */
 .header-bottom {
   background-color: #2b2b2b;
 
@@ -497,12 +495,6 @@ oare pusa iconita direct in placeholder? */
   max-width: 313px;
 }
 
-/* aliniere "lookbook" din header-bottom cu
-ultima img din catalog tiles. --> nu sunt convinsa ca e solutia potrivita.
-Initial am vrut sa adaug o margine pe fiecare article, fara sa redimensionez
-imaginea. Imi strica alinierea si nu am reusit sa o remediez, asa ca am apelat
- la solutia asta.
-  */
 
 .content .product-tile .product-image-container {
   position: relative;
@@ -545,9 +537,6 @@ imaginea. Imi strica alinierea si nu am reusit sa o remediez, asa ca am apelat
   color: #740878;
 }
 
-/* nu am vazut deloc hover in design. sterg daca nu e in regula :D
-daca erau si mi-au scapat mie, again, remediez
-*/
 .home-about-us main {
   text-align: justify;
   text-justify: inter-word;
@@ -634,6 +623,11 @@ aside img {
 .footer-sign-up-newsletter form input {
   margin: 2.5px 0;
   border-color: white;
+  font-family: 'Roboto';
+  font-weight: normal;
+  border: none;
+  padding: 1px 20px;
+  text-align: center;
 }
 .footer-sign-up-newsletter button {
   margin: 10px 5px;
@@ -645,6 +639,39 @@ aside img {
 .footer-sign-up-newsletter button {
   max-width: 100px;
   margin-left: 0;
+}
+
+.form-newsletter .message {
+ font-size: 12px;
+ color: crimson;
+}
+
+.submitted-message {
+  color:#740878;
+  font-size: 15px;
+  margin: 15px 5px;
+  text-transform: none;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.footer-sign-up-newsletter button[type='submit'].busy {
+  border: none;
+  background: none;
+}
+
+.footer-sign-up-newsletter button[type='submit'].busy .icon {
+  color:#740878;
+  animation: spin 1s linear infinite;
+  font-size: 20px;
 }
 
 .footer-nav-style nav li {
@@ -661,5 +688,3 @@ aside img {
 .footer-container li a:hover {
   color: #740878;
 }
-/* footer-ul nu e aliniat ca in design.
-Il voi schimba daca trebuie, dar m-am distrat putin aranjanu-le */

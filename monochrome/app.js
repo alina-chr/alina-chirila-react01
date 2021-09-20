@@ -52,7 +52,7 @@ class NewsletterForm extends React.Component {
       <div>
         {this.state.submitted === true ? (
           <div className="submitted-message">
-            Hello {this.state.submittedValue}, thank you for submiting!
+            Hello {this.state.submittedValue}, thank you for submitting!
           </div>
         ) : (
           <form
@@ -100,3 +100,148 @@ const newsletterContainer = document.querySelector(
   '.footer-sign-up-newsletter',
 );
 ReactDOM.render(<NewsletterForm></NewsletterForm>, newsletterContainer);
+
+class AddToCartButton extends React.Component {
+  state = {
+    added: false,
+    busy: false,
+  };
+
+  onClick = () => {
+    if (this.state.busy === true) {
+      return;
+    }
+
+    this.setState({
+      busy: true,
+    });
+
+    setTimeout(() => {
+      dispatchEvent(
+        new CustomEvent('cart:add', {
+          detail: this.props.productId,
+        }),
+      );
+
+      this.setState({
+        busy: false,
+        added: !this.state.added,
+      });
+    }, 1000);
+  };
+
+  render() {
+    return (
+      <div>
+        <a
+          className={`product-control ${
+            this.state.added === true ? 'active' : ''
+          } ${this.state.busy === true ? 'busy' : ''}`}
+          type="button"
+          title={
+            this.state.added === true
+              ? `Remove ${this.props.productId} from Cart`
+              : 'Add to Cart'
+          }
+          onClick={this.onClick}
+        >
+          <span>
+            {this.state.added === true ? (
+              <i className="fas fa-plus-square icon"></i>
+            ) : (
+              <i className="far fa-plus-square icon"></i>
+            )}
+            {this.state.busy === true ? (
+              <i className="fas fa-spinner icon-spin"></i>
+            ) : (
+              ''
+            )}
+          </span>
+        </a>
+      </div>
+    );
+  }
+}
+
+class AddToWishlistButton extends React.Component {
+  state = {
+    added: false,
+    busy: false,
+  };
+
+  onClick = () => {
+    if (this.state.busy === true) {
+      return;
+    }
+
+    this.setState({
+      busy: true,
+    });
+
+    setTimeout(() => {
+      dispatchEvent(
+        new CustomEvent('cart:add', {
+          detail: this.props.productId,
+        }),
+      );
+
+      this.setState({
+        busy: false,
+        added: !this.state.added,
+      });
+    }, 1000);
+  };
+  render() {
+    return (
+      <div>
+        <a
+          className={`product-control ${
+            this.state.added === true ? 'active' : ''
+          } ${this.state.busy === true ? 'busy' : ''}`}
+          type="button"
+          title={
+            this.state.added === true
+              ? `Remove ${this.props.productId} from Wishlist`
+              : 'Add to Wishlist'
+          }
+          onClick={this.onClick}
+        >
+          <span>
+            {this.state.added === true ? (
+              <i className="fas fa-heart icon"></i>
+            ) : (
+              <i className="far fa-heart icon"></i>
+            )}
+            {this.state.busy === true ? (
+              <i className="fas fa-spinner icon-spin"></i>
+            ) : (
+              ''
+            )}
+          </span>
+        </a>
+      </div>
+    );
+  }
+}
+
+class ProductControls extends React.Component {
+  render() {
+    const productId = this.props.productId;
+
+    return [
+      <AddToCartButton key="321" productId={productId}></AddToCartButton>,
+      <AddToWishlistButton
+        key="123"
+        productId={productId}
+      ></AddToWishlistButton>,
+    ];
+  }
+}
+
+const productTileControls = document.querySelectorAll('.product-tile-controls');
+productTileControls.forEach((productTileControl, index) => {
+  ReactDOM.render(
+    <ProductControls key={index} productId={index}></ProductControls>,
+    productTileControl,
+  );
+});

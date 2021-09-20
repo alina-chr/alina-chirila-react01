@@ -533,7 +533,18 @@ a {
   margin-left: 16px;
 }
 
-.product-tile-controls a i:hover {
+.product-tile-controls a .icon {
+  color: #740878;
+}
+
+.product-control.busy .icon {
+  display: none;
+}
+
+.product-control.busy .icon-spin {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  font-size: 20px;
   color: #740878;
 }
 

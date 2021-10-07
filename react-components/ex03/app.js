@@ -22,4 +22,40 @@ const person = {
   },
 };
 
+console.warn(
+  `Folosind Object.values(), afiseaza o lista inversata cu numele complet inversat al prietenilor. `,
+);
 
+Object.values(person.friends)
+  .reverse()
+  .forEach(({ name, surname }) => {
+    console.log(`${name} ${surname}`);
+  });
+
+console.warn(`Afiseaza propozitia: “Prietenii mei sunt Larry, Steven si Carol.” folosind Object.values()
+  `);
+
+let message = Object.values(person.friends).reduce(
+  (message, { name }, index, friends) => {
+    const arrayLength = friends.length;
+    const punctuation =
+      index === arrayLength - 1
+        ? '.'
+        : index === arrayLength - 2
+        ? ' si '
+        : ', ';
+
+    return `${message}${name}${punctuation}`;
+  },
+  'Prietenii mei sunt',
+);
+
+console.log(message);
+
+Object.values(person.friends).forEach(({ name, age }) => {
+  console.log(
+    `Diferenta de varsta dintre ${name} si ${person.name} este e ${Math.abs(
+      age - person.age,
+    )} ani.`,
+  );
+});

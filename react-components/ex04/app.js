@@ -27,5 +27,12 @@ const person = {
   },
 };
 
+console.warn(
+  `Folosind Object.entries() pe proprietatea skills, afiseaza abilitatile persoanei daca acestea sunt true. Folosind propozitii de forma: “person.name cunoaste: html.” “person.name cunoaste: javaScript.”`,
+);
 
-
+Object.entries(person.skills).forEach(([skill, known]) => {
+  if (known === true) {
+    console.log(`${person.name} cunoaste ${skill}`);
+  }
+});

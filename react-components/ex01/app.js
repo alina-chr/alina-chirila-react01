@@ -83,3 +83,5 @@ arr = person.skills.map((skill) => {
   return Math.abs(skill.length - person.age);
 });
 console.log(arr);
+
+//homework

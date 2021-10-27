@@ -1,11 +1,11 @@
-export const ProductDetails = ({ product }) => {
+export const Address = ({ address }) => {
   const renderTableRows = () => {
-    const entries = Object.entries(product);
+    const entries = Object.entries(address);
 
-    return entries.map(([feature, value]) => {
+    return entries.map(([key, value]) => {
       return (
-        <tr key={feature}>
-          <td>{feature}</td>
+        <tr key={key}>
+          <td>{key}</td>
 
           <td>{value}</td>
         </tr>
@@ -20,4 +20,4 @@ export const ProductDetails = ({ product }) => {
   );
 };
 
-export default ProductDetails;
+export default Address;

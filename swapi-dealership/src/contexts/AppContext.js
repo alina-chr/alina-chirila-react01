@@ -5,6 +5,12 @@ export const AppContext = createContext();
 export const appState = {
   currentScreen: 'home',
   selected: null,
+  searchResults: [],
+  cart: [],
+  order: {
+    address: {},
+    items: [],
+  },
 };
 
 export const appStateReducer = (appState, { type, payload }) => {
@@ -20,6 +26,45 @@ export const appStateReducer = (appState, { type, payload }) => {
     return {
       ...appState,
       selected: payload,
+    };
+  }
+
+  if (type === 'setSearchResults') {
+    return {
+      ...appState,
+      searchResults: payload,
+    };
+  }
+
+  if (type === 'addToCart') {
+    return {
+      ...appState,
+      cart: [...appState.cart, payload],
+    };
+  }
+
+  if (type === 'removeFromCart') {
+    const cart = appState.cart.filter((cartItem) => {
+      return cartItem.name !== payload.name;
+    });
+
+    return {
+      ...appState,
+      cart,
+    };
+  }
+
+  if (type === 'emptyCart') {
+    return {
+      ...appState,
+      cart: [],
+    };
+  }
+
+  if (type === 'setOrder') {
+    return {
+      ...appState,
+      order: payload,
     };
   }
 

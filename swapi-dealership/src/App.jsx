@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import FooterNav from './components/FooterNav';
 import Screen from './components/Screen';
 import { AppContext, appState, appStateReducer } from './contexts/AppContext';
 import Search from './legacy/Search';
@@ -18,7 +19,7 @@ const App = () => {
         <nav className="container d-flex justify-content-between">
           <h1 className="display-6 text-warning">Swapi Vehicles</h1>
 
-          <Search></Search>
+          <Search className="d-inline-flex align-self-center"></Search>
         </nav>
       </header>
 
@@ -26,7 +27,9 @@ const App = () => {
         <Screen screen={currentScreen}></Screen>
       </main>
 
-      <footer className="container mb-4">FOoter</footer>
+      <footer className="container mb-4">
+        <FooterNav></FooterNav>
+      </footer>
     </AppContext.Provider>
   );
 };

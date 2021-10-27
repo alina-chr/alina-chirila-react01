@@ -1,8 +1,10 @@
 import { Component } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
 const baseUrl = 'https://swapi.dev/api/vehicles';
 
 class Search extends Component {
+  static contextType = AppContext;
   state = {
     busy: false,
     searchTerm: '',
@@ -19,13 +21,21 @@ class Search extends Component {
       .then((response) => {
         return response.json();
       })
-      .then(({ results: films }) => {
+      .then(({ results }) => {
         this.setState({
           busy: false,
           searchTerm: '',
         });
 
-        this.props.onSearchResults(films);
+        this.context.dispatch({
+          type: 'setSearchResults',
+          payload: results,
+        });
+
+        this.context.dispatch({
+          type: 'setScreen',
+          payload: 'searchResults',
+        });
       });
   };
 
@@ -36,11 +46,10 @@ class Search extends Component {
   };
 
   render() {
+    const className = this.props.className || '';
+
     return (
-      <form
-        className="d-inline-flex align-self-center"
-        onSubmit={this.onSubmit}
-      >
+      <form className={className} onSubmit={this.onSubmit}>
         <input
           className="form-control me-2 align-self-center"
           type="text"

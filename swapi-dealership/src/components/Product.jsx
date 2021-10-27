@@ -1,16 +1,48 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import MetaImage from './../legacy/MetaImage';
+import Dialog from './Dialog';
 import { ProductDetails } from './ProductDetails';
 
 export const Product = () => {
   const { dispatch, state } = useContext(AppContext);
-  const { selected: product } = state;
+  const { selected: product, cart } = state;
+  // const productInCart = cart.find((cartItem) => {
+  //   return cartItem.name === product.name;
+  // })
+  //   ? true
+  //   : false;
+  const productInCart = useMemo(() => {
+    return Boolean(
+      cart.find((cartItem) => {
+        return cartItem.name === product.name;
+      }),
+    );
+  }, [cart, product.name]);
 
   const navigateHome = () => {
     dispatch({
       type: 'setScreen',
       payload: 'home',
+    });
+
+    dispatch({
+      type: 'setSelected',
+      payload: null,
+    });
+  };
+
+  const addToCart = () => {
+    dispatch({
+      type: 'addToCart',
+      payload: product,
+    });
+  };
+
+  const removeFromCart = () => {
+    dispatch({
+      type: 'removeFromCart',
+      payload: product,
     });
   };
 
@@ -51,10 +83,17 @@ export const Product = () => {
           className="btn btn-warning btn-xl flex-grow-1"
           title={`Add ${product.name} to cart`}
           type="button"
+          onClick={() => {
+            productInCart ? removeFromCart() : addToCart();
+          }}
         >
-          Add to cart
+          {productInCart
+            ? 'Remove from cart'
+            : `Add to cart (${product.cost_in_credits})`}
         </button>
       </div>
+
+      <Dialog show={true}>hello from portal</Dialog>
     </section>
   );
 };

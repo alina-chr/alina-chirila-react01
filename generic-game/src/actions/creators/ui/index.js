@@ -4,7 +4,6 @@ export const clickClicker = (payload = 1) => {
   return {
     type: CLICKER_CLICK,
     payload,
-    //payload: payload
   };
 };
 

@@ -1,10 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { AppContext } from './../contexts/AppContext';
 
 export const ProductTile = ({ product }) => {
   const { name, model } = product;
-  const { dispatch } = useContext(AppContext);
-
+  const { dispatch, state } = useContext(AppContext);
+  const { cart } = state;
   const navigateToPdp = () => {
     dispatch({
       type: 'setScreen',
@@ -16,6 +16,14 @@ export const ProductTile = ({ product }) => {
       payload: product,
     });
   };
+
+  const productInCart = useMemo(() => {
+    return Boolean(
+      cart.find((cartItem) => {
+        return cartItem.name === product.name;
+      }),
+    );
+  }, [cart, product.name]);
 
   return (
     <article className="col-6 col-md-3 mb-6 d-flex flex-column">
@@ -35,6 +43,12 @@ export const ProductTile = ({ product }) => {
         >
           Details
         </button>
+        <span>
+          <i
+            className="fas fa-shopping-cart m-3"
+            style={{ color: productInCart ? 'white' : 'grey' }}
+          ></i>
+        </span>
       </section>
     </article>
   );

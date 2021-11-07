@@ -1,8 +1,9 @@
 import { useContext, useMemo, useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
-import MetaImage from './../legacy/MetaImage';
+// import MetaImage from './../legacy/MetaImage';
 import Dialog from './Dialog';
 import { ProductDetails } from './ProductDetails';
+import RelatedProducts from './RelatedProducts';
 
 export const Product = () => {
   const { dispatch, state } = useContext(AppContext);
@@ -76,7 +77,7 @@ export const Product = () => {
       </div>
 
       <div className="col-12 mb-4 text-center">
-        <MetaImage term={product.name}></MetaImage>
+        {/* <MetaImage term={product.name}></MetaImage> */}
       </div>
 
       <div className="col-12 mb-4">
@@ -106,6 +107,9 @@ export const Product = () => {
             ? 'Remove from cart'
             : `Add to cart (${product.cost_in_credits})`}
         </button>
+      </div>
+      <div className="col-12 col-md-6 offset-md-3 d-flex justify-content-between">
+        <RelatedProducts product={product}></RelatedProducts>
       </div>
 
       <Dialog

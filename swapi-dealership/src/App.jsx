@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import FooterNav from './components/FooterNav';
+import { Logo } from './components/Logo';
 import Screen from './components/Screen';
 import { AppContext, appState, appStateReducer } from './contexts/AppContext';
 import Search from './legacy/Search';
@@ -21,6 +22,9 @@ const App = () => {
 
           <Search className="d-inline-flex align-self-center"></Search>
         </nav>
+        <div className="container d-flex">
+          <Logo></Logo>
+        </div>
       </header>
 
       <main className="container mt-7 mb-4">
@@ -28,6 +32,10 @@ const App = () => {
       </main>
 
       <footer className="container mb-4">
+        <div className="d-flex flex-row-reverse">
+          <Logo></Logo>
+        </div>
+
         <FooterNav></FooterNav>
       </footer>
     </AppContext.Provider>

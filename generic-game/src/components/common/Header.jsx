@@ -4,22 +4,23 @@ import { useDispatch } from 'react-redux';
 import Button from '../ui/Button';
 import { requestSignOut, requestSignIn } from '../../actions/creators/auth';
 import { FaUserAlt } from 'react-icons/fa';
-import { CgSpinnerTwo } from 'react-icons/cg';
+import Spinner from '../ui/loaders/Spinner';
 import { useAuth } from '../../hooks';
 
 export const Header = () => {
   const dispatch = useDispatch();
-  const { authenticated, established } = useAuth();
+  const { authenticated, established, user } = useAuth();
 
   const renderUserControls = () => {
     if (!established) {
-      return <CgSpinnerTwo className="animate-spin"></CgSpinnerTwo>;
+      return <Spinner></Spinner>;
     }
 
     if (authenticated) {
+      const username = user.firstName;
       return (
         <>
-          <Link to="/profile" title="Profile">
+          <Link to="/profile" title={`Hello ${username}, go to profile.`}>
             <Button element="span" className="inline-flex h-full items-center">
               <FaUserAlt></FaUserAlt>
             </Button>

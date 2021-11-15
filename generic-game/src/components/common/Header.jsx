@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import Button from '../ui/Button';
 import { requestSignOut, requestSignIn } from '../../actions/creators/auth';
 import { FaUserAlt } from 'react-icons/fa';
-import Spinner from '../ui/loaders/Spinner';
+import { Spinner } from '../ui/loaders';
 import { useAuth } from '../../hooks';
 
 export const Header = () => {

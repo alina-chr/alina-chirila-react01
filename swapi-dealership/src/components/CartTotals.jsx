@@ -6,10 +6,6 @@ export const CartTotals = ({ cart }) => {
   const { dispatch, state } = useContext(AppContext);
   const { discount, promoCode } = state;
   const renderTableRows = () => {
-    if (cart.length === 0) {
-      return <h2>No products in cart</h2>;
-    }
-
     return cart.map((cartItem) => {
       const { name, cost_in_credits } = cartItem;
 

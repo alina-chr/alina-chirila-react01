@@ -13,16 +13,16 @@ export const Cart = () => {
       type: 'setScreen',
       payload: 'checkout',
     });
+
+    if (cart.length <= 0) {
+      dispatch({
+        type: 'setScreen',
+        payload: 'home',
+      });
+
+      return;
+    }
   };
-
-  if (cart.length <= 0) {
-    dispatch({
-      type: 'setScreen',
-      payload: 'home',
-    });
-
-    return;
-  }
 
   return (
     <section className="row">
@@ -31,7 +31,11 @@ export const Cart = () => {
       </header>
 
       <div className="col-12 mb-4">
-        <CartTotals cart={cart}></CartTotals>
+        {cart.length <= 0 ? (
+          <h2 className="mt-3">No products in cart</h2>
+        ) : (
+          <CartTotals cart={cart}></CartTotals>
+        )}
       </div>
 
       <div className="col-12 text-center">
@@ -41,7 +45,7 @@ export const Cart = () => {
           title="Proceed to checkout"
           onClick={navigateToCheckout}
         >
-          Proceed to checkout
+          {cart.length <= 0 ? 'Go to homepage' : 'Proceed to checkout'}
         </button>
       </div>
     </section>

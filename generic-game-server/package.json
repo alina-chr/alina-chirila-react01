@@ -1,4 +1,13 @@
 {
+  "name": "generic-game-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --port 8000 --watch db.json"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "json-server": "^0.17.0"
   }

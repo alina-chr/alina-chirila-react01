@@ -24,16 +24,9 @@ const authReducer = (state = initialState, action) => {
       };
     case AUTH_LOGOUT:
       return {
-        ...state,
-        authenticated: false,
+        ...initialState,
         established: true,
-        user: null,
       };
-    //SAU
-    //return {
-    // ...initalState,
-    // established: true
-    // };
     default:
       return state;
   }

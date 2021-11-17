@@ -1,20 +1,10 @@
-import { useContext, useState, useRef } from 'react';
 import { AppContext } from '../contexts/AppContext';
+import Discount from './Discount';
+import { useContext } from 'react';
 
 export const CartTotals = ({ cart }) => {
-  const { dispatch } = useContext(AppContext);
-  const [cartDiscount, setCartDiscount] = useState(false);
-  const inputRef = useRef();
-
-  const toggleDiscount = () => {
-    if (!cartDiscount) {
-      setCartDiscount(true);
-      inputRef.current.checked = true;
-    } else {
-      setCartDiscount(false);
-      inputRef.current.checked = false;
-    }
-  };
+  const { dispatch, state } = useContext(AppContext);
+  const { discount, promoCode } = state;
   const renderTableRows = () => {
     if (cart.length === 0) {
       return <h2>No products in cart</h2>;
@@ -29,6 +19,7 @@ export const CartTotals = ({ cart }) => {
           payload: cartItem,
         });
       };
+
       const navigateToPdp = () => {
         dispatch({
           type: 'setSelected',
@@ -60,74 +51,50 @@ export const CartTotals = ({ cart }) => {
     });
   };
 
+  const removeDiscount = () => {
+    dispatch({
+      type: 'removeDiscount',
+    });
+    dispatch({
+      type: 'removePromoCode',
+    });
+  };
+
   const renderTotalsRow = () => {
     const total = cart.reduce((total, { cost_in_credits: price }) => {
-      let cartTotal = (total += Number(price));
-      let discount = cartTotal * 0.1;
-      if (cartDiscount) {
-        return cartTotal - discount;
-      } else {
-        return cartTotal;
-      }
       // price = cartItem.cost_in_credits
+      return (total += Number(price));
     }, 0);
-
     return (
       <>
         <tr>
           <td>Total</td>
-          <td>{total}</td>
+          <td>{total - total * discount}</td>
         </tr>
-        {cartDiscount ? (
+        {promoCode ? (
           <tr>
-            <td> Discount: </td>
-            <td>{total * 0.1} </td>
+            <td>Discount</td>
+            <td>{total * discount}</td>
             <td>
               <button
                 className="btn btn-warning btn-xl flex-grow-1"
-                title={`Remove from cart`}
+                title={`Remove discount`}
                 type="button"
-                onClick={toggleDiscount}
+                onClick={removeDiscount}
               >
-                {!cartDiscount ? 'add discount' : 'remove discount'}
+                Remove discount
               </button>
             </td>
           </tr>
         ) : (
           <tr>
-            <td>No discount applied</td>
+            <td>No Discount Added</td>
           </tr>
         )}
       </>
     );
   };
 
-  const renderDiscountRow = () => {
-    return (
-      <form>
-        <div className="row mb-3">
-          <div className="col-12">
-            <div className="form-check">
-              <input
-                type="checkbox"
-                className="form-check-input"
-                name="discount"
-                id="discount"
-                ref={inputRef}
-                onChange={toggleDiscount}
-              ></input>
-              <label
-                htmlFor="terms"
-                className="form-check-label btn p-0 text-white"
-              >
-                Apply 10% discount
-              </label>
-            </div>
-          </div>
-        </div>
-      </form>
-    );
-  };
   return (
     <>
       <table className="table table-dark">
@@ -136,7 +103,7 @@ export const CartTotals = ({ cart }) => {
           {renderTotalsRow()}
         </tbody>
       </table>
-      {renderDiscountRow()}
+      {promoCode ? '10% discount applied' : <Discount />}
     </>
   );
 };

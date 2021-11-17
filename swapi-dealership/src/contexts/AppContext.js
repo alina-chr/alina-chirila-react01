@@ -6,6 +6,8 @@ export const appState = {
   currentScreen: 'home',
   selected: null,
   searchResults: [],
+  promoCode: false,
+  discount: 0,
   cart: [],
   order: {
     address: {},
@@ -58,6 +60,34 @@ export const appStateReducer = (appState, { type, payload }) => {
     return {
       ...appState,
       cart: [],
+    };
+  }
+
+  if (type === 'applyPromoCode') {
+    return {
+      ...appState,
+      promoCode: true,
+    };
+  }
+
+  if (type === 'removePromoCode') {
+    return {
+      ...appState,
+      promoCode: false,
+    };
+  }
+
+  if (type === 'setDiscount') {
+    return {
+      ...appState,
+      discount: payload,
+    };
+  }
+
+  if (type === 'removeDiscount') {
+    return {
+      ...appState,
+      discount: 0,
     };
   }
 

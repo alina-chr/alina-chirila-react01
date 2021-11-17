@@ -4,7 +4,7 @@ import SearchResults from './SearchResults';
 import Cart from './Cart';
 import Checkout from './Checkout';
 import OrderConfirmation from './OrderConfirmation';
-import Error404Page from './Error404Page';
+import Error404 from './Error404';
 
 const componentMap = {
   home: Products,
@@ -13,7 +13,7 @@ const componentMap = {
   cart: Cart,
   checkout: Checkout,
   orderConfirmation: OrderConfirmation,
-  error404Page: Error404Page,
+  error404Page: Error404,
 };
 
 // props = {screen: 'home'}
@@ -21,7 +21,7 @@ const componentMap = {
 // props->screen
 export const Screen = ({ screen = '' }) => {
   if (!screen || typeof componentMap[screen] === 'undefined') {
-    return <componentMap.error404Page></componentMap.error404Page>;
+    return <componentMap.error404></componentMap.error404>;
   }
 
   const CurrentComponent = componentMap[screen];

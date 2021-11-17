@@ -13,7 +13,9 @@ export const Logo = () => {
       src="images/sw_logo.png"
       alt="swapi logo"
       className="mb-2"
+      title="Go to Homepage"
       onClick={navigateHome}
+      role="button"
     />
   );
 };

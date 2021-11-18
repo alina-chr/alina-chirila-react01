@@ -28,11 +28,36 @@ export const readUser = async (userId) => {
 
   const { data } = await usersApi.get(endpoint);
 
-  if (data) {
-    return data;
+  if (data.stats) {
+    return data.stats;
   }
 
   return undefined;
 };
+
+// createProfile
+// POST /profiles/2312313
+export const createProfile = async (userId, colors) => {
+  const payload = {
+    id: userId,
+    creature: colors,
+  };
+
+  return await usersApi.post(`/profiles`, payload);
+};
+
+// readProfile
+export const readProfile = async (userId) => {
+  const { data } = await usersApi.get(`/profiles/${userId}`);
+
+  if (data.creature) {
+    return data.creature;
+  }
+  // return data?.creature;
+
+  return undefined;
+};
+
+// updateProfile
 
 export default usersApi;

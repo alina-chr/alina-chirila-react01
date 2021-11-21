@@ -2,7 +2,8 @@ import { AppContext } from '../contexts/AppContext';
 import { useContext, useState } from 'react';
 
 export const Discount = () => {
-  const { dispatch } = useContext(AppContext);
+  const { dispatch, state } = useContext(AppContext);
+  const { promoCode } = state;
   const [entry, setEntry] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,18 +14,15 @@ export const Discount = () => {
   const onFormSubmit = (event) => {
     event.preventDefault();
 
-    if (entry === 'APPLY10') {
-      dispatch({
-        type: 'applyPromoCode',
-      });
-      dispatch({
-        type: 'setDiscount',
-        payload: 0.1,
-      });
-    }
-    setEntry('');
+    dispatch({
+      type: 'applyPromoCode',
+      payload: entry,
+    });
 
-    setErrorMessage('Invalid promo code. ');
+    setEntry('');
+    if (!promoCode) {
+      setErrorMessage('Invalid promo code. ');
+    }
   };
 
   return (

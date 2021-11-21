@@ -99,7 +99,7 @@ export const CartTotals = ({ cart }) => {
           {renderTotalsRow()}
         </tbody>
       </table>
-      {promoCode ? '10% discount applied' : <Discount />}
+      {promoCode ? 'discount applied' : <Discount />}
     </>
   );
 };

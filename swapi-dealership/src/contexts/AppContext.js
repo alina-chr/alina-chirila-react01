@@ -64,9 +64,21 @@ export const appStateReducer = (appState, { type, payload }) => {
   }
 
   if (type === 'applyPromoCode') {
+    const promos = { APPLY10: 0.1, 'LUNA DECEMBRIE': 0.5 };
+    if (promos[payload] === undefined) {
+      return {
+        ...appState,
+        promoCode: false,
+        promoType: 'invalid',
+        discount: 0,
+      };
+    }
+
     return {
       ...appState,
       promoCode: true,
+      promoType: payload,
+      discount: promos[payload],
     };
   }
 
@@ -74,19 +86,6 @@ export const appStateReducer = (appState, { type, payload }) => {
     return {
       ...appState,
       promoCode: false,
-    };
-  }
-
-  if (type === 'setDiscount') {
-    return {
-      ...appState,
-      discount: payload,
-    };
-  }
-
-  if (type === 'removeDiscount') {
-    return {
-      ...appState,
       discount: 0,
     };
   }

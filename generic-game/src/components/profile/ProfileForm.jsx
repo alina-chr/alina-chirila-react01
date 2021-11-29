@@ -3,17 +3,20 @@ import {
   patchUserProfile,
   setCreatureColor,
 } from '../../actions/creators/profile';
+import { useProfilecolors } from '../../hooks';
+
 import { Button } from './../ui';
 // import {Spinner} from './../ui/loaders'
 // import {Input, Select, Checkbox} from './../ui/forms'
 
 export const ProfileForm = () => {
-  const { mainColor, secondaryColor, eyeColor } = useSelector(({ profile }) => {
-    // selectors run on each dispatch
-    const { creature } = profile;
+  const { mainColor, secondaryColor, eyeColor } = useProfilecolors();
+  //  useSelector(({ profile }) => {
+  //   // selectors run on each dispatch
+  //   const { creature } = profile;
 
-    return creature;
-  });
+  //   return creature;
+  // });
 
   const userId = useSelector(({ auth }) => {
     return auth.user.id;

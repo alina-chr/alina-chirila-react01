@@ -3,6 +3,8 @@ import { useAuth, useStats } from '../hooks';
 import { useDispatch } from 'react-redux';
 import { requestSignIn } from '../actions/creators/auth';
 import { UserStats } from '../components/profile';
+import { Button } from '../components/ui';
+import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
   const { authenticated, established } = useAuth();
@@ -13,7 +15,20 @@ export const HomePage = () => {
       {!established ? (
         <Spinner></Spinner>
       ) : authenticated ? (
-        <UserStats {...stats} className="mt-8" entryClassName="p-5"></UserStats>
+        <>
+          <UserStats
+            {...stats}
+            className="mt-8"
+            entryClassName="p-5"
+          ></UserStats>
+          <div className="mt-2 text-center">
+            <Link to="/play">
+              <Button type="span" title="Play now">
+                Play
+              </Button>
+            </Link>
+          </div>
+        </>
       ) : (
         <div className="text-center">
           <button

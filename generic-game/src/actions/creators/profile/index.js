@@ -3,6 +3,8 @@ import {
   createUser,
   readProfile,
   readUser,
+  updateGameLost,
+  updateGameWon,
   updateProfile,
 } from '../../../api/users';
 import {
@@ -90,5 +92,34 @@ export const setCreatureColors = (creatureColors) => {
   return {
     type: PROFILE_SET_COLORS,
     payload: creatureColors,
+  };
+};
+
+export const patchGameLost = () => {
+  return async (dispatch, getState) => {
+    const { auth, profile } = getState();
+    const { id: userId } = auth.user;
+
+    try {
+      const userStats = await updateGameLost(userId, profile.stats);
+      dispatch(setUserStats(userStats));
+    } catch (error) {
+      return Promise.reject(error.response);
+      // if any other error
+      //notify user and rollback changes in state
+    }
+  };
+};
+
+export const patchGameWon = () => {
+  return async (dispatch, getState) => {
+    const { auth, profile } = getState();
+    const { id: userId } = auth.user;
+    try {
+      const userStats = await updateGameWon(userId, profile.stats);
+      dispatch(setUserStats(userStats));
+    } catch (error) {
+      return Promise.reject(error.response);
+    }
   };
 };

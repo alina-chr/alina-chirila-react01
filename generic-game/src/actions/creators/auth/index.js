@@ -5,6 +5,7 @@ import {
   postUserProfile,
   postUserStats,
 } from '../profile';
+import { setNetworkError } from '../ui';
 import { AUTH_LOGOUT, AUTH_LOGIN } from './../../types/auth';
 
 export const login = (user) => {
@@ -23,7 +24,9 @@ export const login = (user) => {
         await dispatch(postUserStats(id));
       }
 
-      // do more error handling
+      if (httpStatus === 500) {
+        await dispatch(setNetworkError('500 Internal Server Error...'));
+      }
     }
 
     // read profile
@@ -32,9 +35,17 @@ export const login = (user) => {
     try {
       // dispatch getUserProfile
       await dispatch(getUserProfile(id));
+      //!test setNetworkError
+      await dispatch(postUserProfile(id));
     } catch (response) {
       // dispatch postUserProfile
-      await dispatch(postUserProfile(id));
+      const { status: httpStatus } = response;
+      if (httpStatus === 404) {
+        await dispatch(postUserProfile(id));
+      }
+      if (httpStatus === 500) {
+        await dispatch(setNetworkError('500 Internal Server Error...'));
+      }
     }
 
     dispatch(setLogin(user));

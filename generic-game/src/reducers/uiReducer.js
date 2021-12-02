@@ -1,7 +1,12 @@
-import { CLICKER_CLICK, CLICKER_DECREMENT } from '../actions/types/ui';
+import {
+  CLICKER_CLICK,
+  CLICKER_DECREMENT,
+  SET_NETWORK_ERROR,
+} from '../actions/types/ui';
 
 const initialState = {
   clicker: 0,
+  networkError: '',
 };
 
 export const uiReducer = (state = initialState, { type, payload }) => {
@@ -16,6 +21,12 @@ export const uiReducer = (state = initialState, { type, payload }) => {
         ...state,
         clicker: state.clicker - payload,
       };
+    case SET_NETWORK_ERROR:
+      return {
+        ...state,
+        networkError: payload,
+      };
+
     default:
       return state;
   }

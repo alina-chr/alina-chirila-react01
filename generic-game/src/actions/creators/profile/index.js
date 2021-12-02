@@ -38,7 +38,11 @@ export const setUserStats = (stats) => {
 // postUserStats
 export const postUserStats = (userId) => {
   return async () => {
-    await createUser(userId);
+    try {
+      await createUser(userId);
+    } catch ({ response }) {
+      return Promise.reject(response);
+    }
   };
 };
 

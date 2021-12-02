@@ -17,7 +17,7 @@ export const login = (user) => {
     // if not, create
     try {
       await dispatch(getUserStats(id));
-    } catch (response) {
+    } catch ({ response }) {
       const { status: httpStatus } = response;
 
       if (httpStatus === 404) {
@@ -36,8 +36,8 @@ export const login = (user) => {
       // dispatch getUserProfile
       await dispatch(getUserProfile(id));
       //!test setNetworkError
-      await dispatch(postUserProfile(id));
-    } catch (response) {
+      // await dispatch(postUserProfile(id));
+    } catch ({ response }) {
       // dispatch postUserProfile
       const { status: httpStatus } = response;
       if (httpStatus === 404) {

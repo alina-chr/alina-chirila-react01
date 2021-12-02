@@ -6,6 +6,7 @@ import {
   HomePage,
   NotFoundPage,
   ProfilePage,
+  RankPage,
   RanksPage,
 } from './pages';
 
@@ -24,7 +25,8 @@ export const App = () => {
           <Route exact path="/" component={HomePage}></Route>
           <Route exact path="/play" component={GamePage}></Route>
           <Route path="/profile" component={ProfilePage}></Route>
-          <Route path="/ranks" component={RanksPage}></Route>
+          <Route path="/ranks" exact component={RanksPage}></Route>
+          <Route path="/ranks/:id" component={RankPage}></Route>
           <Route component={NotFoundPage}></Route>
         </Switch>
       </main>

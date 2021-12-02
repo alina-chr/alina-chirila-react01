@@ -1,4 +1,5 @@
 import { initializeGoogleAuth } from '../../../api/googleAuth';
+import { readUser, readUsers } from '../../../api/users';
 import {
   getUserProfile,
   getUserStats,
@@ -6,7 +7,12 @@ import {
   postUserStats,
 } from '../profile';
 import { setNetworkError } from '../ui';
-import { AUTH_LOGOUT, AUTH_LOGIN } from './../../types/auth';
+import {
+  AUTH_LOGOUT,
+  AUTH_LOGIN,
+  SET_USERS,
+  SET_USER,
+} from './../../types/auth';
 
 export const login = (user) => {
   return async (dispatch) => {
@@ -17,7 +23,7 @@ export const login = (user) => {
     // if not, create
     try {
       await dispatch(getUserStats(id));
-    } catch ({ response }) {
+    } catch (response) {
       const { status: httpStatus } = response;
 
       if (httpStatus === 404) {
@@ -37,7 +43,7 @@ export const login = (user) => {
       await dispatch(getUserProfile(id));
       //!test setNetworkError
       // await dispatch(postUserProfile(id));
-    } catch ({ response }) {
+    } catch (response) {
       // dispatch postUserProfile
       const { status: httpStatus } = response;
       if (httpStatus === 404) {
@@ -78,5 +84,66 @@ export const requestSignOut = () => {
     return initializeGoogleAuth().then((GoogleAuth) => {
       GoogleAuth.signOut();
     });
+  };
+};
+
+// should be in a users slice!!!
+export const getUsers = (force = false) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const cached = state.users.cached;
+
+    if (cached === true && force === false) {
+      return;
+    }
+
+    try {
+      const users = await readUsers();
+
+      dispatch(setUsers(users));
+    } catch (response) {
+      console.log(response);
+    }
+  };
+};
+
+// shuld be in user slice
+export const getUser = (userId, force = false) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const user = state.users.entities[userId];
+
+    if (user !== undefined && force === false) {
+      return;
+    }
+
+    try {
+      const stats = await readUser(userId);
+
+      dispatch(
+        setUser({
+          id: userId,
+          stats,
+        }),
+      );
+    } catch (response) {
+      console.log(response);
+    }
+  };
+};
+
+// should be in a users slice!!!
+export const setUsers = (users) => {
+  return {
+    type: SET_USERS,
+    payload: users,
+  };
+};
+
+// should be in a users slice!!!
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
   };
 };

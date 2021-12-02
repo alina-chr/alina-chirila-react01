@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { gameEnded, gameStarted } from '../actions/creators/game';
 import { patchGameLost, patchGameWon } from '../actions/creators/profile';
@@ -10,6 +11,17 @@ export const GamePage = () => {
   const { playing } = useSelector(({ game }) => {
     return game;
   });
+  useEffect(() => {
+    console.log(playing ? 'Iz playing' : 'Iz not playing');
+  }, [playing]);
+
+  useEffect(() => {
+    console.log('Dispatch changed');
+
+    return () => {
+      dispatch(gameEnded());
+    };
+  }, [dispatch]);
 
   return (
     <div className="p-4 container flex mx-auto">

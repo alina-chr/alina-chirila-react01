@@ -6,15 +6,12 @@ import { requestSignOut, requestSignIn } from '../../actions/creators/auth';
 import { FaUserAlt } from 'react-icons/fa';
 import { Spinner } from '../ui/loaders';
 import { useAuth } from '../../hooks';
-import { useNetworkError } from '../../hooks/useNetworkError';
+import { NetworkError } from '../ui/NetworkError';
 
 export const Header = () => {
   const dispatch = useDispatch();
   const { authenticated, established, user } = useAuth();
-  const networkError = useNetworkError();
-  const refreshPage = () => {
-    window.location.reload(false);
-  };
+
   const renderUserControls = () => {
     if (!established) {
       return <Spinner></Spinner>;
@@ -61,21 +58,7 @@ export const Header = () => {
 
   return (
     <header className="shadow p-4">
-      {networkError.length !== 0 ? (
-        <div className="flex justify-between mb-5 bg-black text-white">
-          {networkError}
-          <Button
-            type="button"
-            title="Reload"
-            className="mr-5 mt-1 mb-1"
-            onClick={refreshPage}
-          >
-            Reload
-          </Button>
-        </div>
-      ) : (
-        <></>
-      )}
+      <NetworkError></NetworkError>
       <div className="container mx-auto flex justify-between items-center">
         <header>
           <h1 className="uppercase text-lg font-bold">

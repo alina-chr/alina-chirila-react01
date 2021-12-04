@@ -1,6 +1,8 @@
 import { initializeGoogleAuth } from '../../../api/googleAuth';
 import { readUser, readUsers } from '../../../api/users';
 import {
+  deleteUserProfile,
+  deleteUserStats,
   getUserProfile,
   getUserStats,
   postUserProfile,
@@ -84,6 +86,30 @@ export const requestSignOut = () => {
     return initializeGoogleAuth().then((GoogleAuth) => {
       GoogleAuth.signOut();
     });
+  };
+};
+
+export const requestDeleteUserStats = (user) => {
+  return async (dispatch) => {
+    const { id } = user;
+    try {
+      await dispatch(deleteUserStats(id));
+    } catch (response) {
+      const { status: httpStatus } = response;
+      if (httpStatus === 404) {
+        await dispatch(setNetworkError(` 404 Error ... `));
+      }
+    }
+
+    try {
+      await dispatch(deleteUserProfile(id));
+    } catch (response) {
+      const { status: httpStatus } = response;
+      if (httpStatus === 404) {
+        await dispatch(setNetworkError(` 404 Error ...`));
+      }
+    }
+    dispatch(requestSignOut());
   };
 };
 

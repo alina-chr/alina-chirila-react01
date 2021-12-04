@@ -8,7 +8,7 @@ export const UserProfile = () => {
   return (
     <>
       <section className="flex justify-between flex-wrap mt-8">
-        <div className="w-full md:w-8/12">
+        <div className="w-full md:w-10/12">
           <h2 className="text-xl bold">User Info</h2>
           <div className="flex flex-col md:flex-row justify-between mt-8">
             <picture className="mr-8 inline-block rounded-full self-center overflow-hidden shadow mb-4 md:mb-0">

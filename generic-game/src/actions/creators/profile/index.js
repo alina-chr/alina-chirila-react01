@@ -1,6 +1,8 @@
 import {
   createProfile,
   createUser,
+  deleteProfile,
+  deleteUser,
   readProfile,
   readUser,
   updateGameLost,
@@ -46,6 +48,18 @@ export const postUserStats = (userId) => {
   };
 };
 
+//deleteUserStats
+export const deleteUserStats = (userId) => {
+  return async () => {
+    try {
+      await deleteUser(userId);
+    } catch (error) {
+      const response = error.response;
+      return Promise.reject(response);
+    }
+  };
+};
+
 export const getUserProfile = (userId) => {
   return async (dispatch) => {
     let creatureColors = {};
@@ -76,6 +90,16 @@ export const postUserProfile = (userId) => {
   };
 };
 
+export const deleteUserProfile = (userId) => {
+  return async () => {
+    try {
+      await deleteProfile(userId);
+    } catch (error) {
+      const response = error.response;
+      return Promise.reject(response);
+    }
+  };
+};
 export const setCreatureColor = (targetProperty, color) => {
   return {
     type: PROFILE_SET_COLOR,

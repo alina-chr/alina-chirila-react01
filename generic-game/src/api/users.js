@@ -112,4 +112,14 @@ export const updateGameWon = async (userId, userStats) => {
   return undefined;
 };
 
+export const readUsers = async () => {
+  try {
+    const { data } = await usersApi.get(`/users`);
+
+    return data;
+  } catch (response) {
+    return response;
+  }
+};
+
 export default usersApi;

@@ -6,6 +6,7 @@ import { Authorize } from '../components/auth';
 import { ProfileForm, Creature } from '../components/profile';
 import { UserProfile } from '../components/profile/UserProfile';
 import { Button } from '../components/ui';
+import { Spinner } from '../components/ui/loaders';
 import { useAuth } from '../hooks';
 
 export const ProfilePage = () => {
@@ -51,7 +52,7 @@ export const ProfilePage = () => {
             <ProfileForm></ProfileForm>
           </section>
         ) : (
-          '...logging you in'
+          <Spinner></Spinner>
         )}
       </div>
     </Authorize>

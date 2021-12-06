@@ -5,6 +5,7 @@ import {
 } from '../../actions/creators/profile';
 import { useProfilecolors } from '../../hooks';
 import { Button } from './../ui';
+import { useDebouncedCallback } from 'use-debounce';
 // import {Spinner} from './../ui/loaders'
 // import {Input, Select, Checkbox} from './../ui/forms'
 
@@ -16,12 +17,12 @@ export const ProfileForm = () => {
   });
 
   // dispatch
-  const x = useDispatch();
+  const dispatch = useDispatch();
 
   const onSubmit = (event) => {
     event.preventDefault();
 
-    x(
+    dispatch(
       patchUserProfile(userId, {
         mainColor,
         secondaryColor,
@@ -30,15 +31,14 @@ export const ProfileForm = () => {
     );
   };
 
-  const onColorPickerChange = (event) => {
+  const onColorPickerChange = useDebouncedCallback((event) => {
     const element = event.target;
     const targetProperty = element.name;
     const colorValue = element.value;
 
     // dispatch to state
-    x(setCreatureColor(targetProperty, colorValue));
-  };
-
+    dispatch(setCreatureColor(targetProperty, colorValue));
+  }, 1000);
   return (
     <form onSubmit={onSubmit}>
       <div className="mb-4 flex justify-between">

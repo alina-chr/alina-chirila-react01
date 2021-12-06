@@ -133,7 +133,7 @@ export const getUsers = (force = false) => {
   };
 };
 
-// shuld be in user slice
+// should be in a user slice !!!
 export const getUser = (userId, force = false) => {
   return async (dispatch, getState) => {
     const state = getState();
@@ -163,6 +163,7 @@ export const setUsers = (users) => {
   return {
     type: SET_USERS,
     payload: users,
+    // established: true,
   };
 };
 

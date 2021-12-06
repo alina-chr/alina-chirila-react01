@@ -1,6 +1,7 @@
 import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import { initializeGoogleAuth } from './api';
 import { Footer, Header } from './components/common';
+
 import {
   GamePage,
   HomePage,

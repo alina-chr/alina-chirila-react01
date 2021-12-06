@@ -14,6 +14,7 @@ const initialState = {
   entities: {},
 
   cached: false,
+  established: false,
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -34,6 +35,7 @@ const usersReducer = (state = initialState, { type, payload }) => {
         ...state,
         entities: users,
         cached: true,
+        established: true,
       };
 
     case SET_USER:

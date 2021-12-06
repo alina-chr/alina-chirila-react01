@@ -23,6 +23,9 @@ export const GamePage = () => {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(gameStarted());
+  }, [dispatch]);
   return (
     <div className="p-4 container flex mx-auto">
       <Authorize>

@@ -47,7 +47,7 @@ export const ProfileForm = () => {
           type="color"
           name="mainColor"
           id="mainColor"
-          value={mainColor}
+          defaultValue={mainColor}
           onChange={onColorPickerChange}
         ></input>
       </div>
@@ -58,7 +58,7 @@ export const ProfileForm = () => {
           type="color"
           name="secondaryColor"
           id="secondaryColor"
-          value={secondaryColor}
+          defaultValue={secondaryColor}
           onChange={onColorPickerChange}
         ></input>
       </div>
@@ -69,7 +69,7 @@ export const ProfileForm = () => {
           type="color"
           name="eyeColor"
           id="eyeColor"
-          value={eyeColor}
+          defaultValue={eyeColor}
           onChange={onColorPickerChange}
         ></input>
       </div>
